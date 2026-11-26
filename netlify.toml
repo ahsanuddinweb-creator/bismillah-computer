@@ -1,6 +1,24 @@
 [build]
   publish = "."
 
+# Keep the requested clean URLs while retaining the separate HTML documents.
+[[redirects]]
+  from = "/services"
+  to = "/services.html"
+  status = 200
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+[[redirects]]
+  from = "/faq"
+  to = "/faq.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]

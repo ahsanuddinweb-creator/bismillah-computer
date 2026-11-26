@@ -30,16 +30,26 @@
 
     let mouseX = -120, mouseY = -120, ringX = -120, ringY = -120;
     let kittenX = -120, kittenY = -120, frame = 0;
+    let kittenSide = 1;
+    // The kitten playfully darts from one side of the pointer to the other.
+    window.setInterval(() => {
+      kittenSide *= -1;
+      if (!frame && document.body.classList.contains('custom-cursor-visible')) {
+        frame = requestAnimationFrame(renderCursor);
+      }
+    }, 1150);
     const renderCursor = () => {
       ringX += (mouseX - ringX) * 0.22;
       ringY += (mouseY - ringY) * 0.22;
-      kittenX += (mouseX + 27 - kittenX) * 0.12;
-      kittenY += (mouseY + 24 - kittenY) * 0.12;
+      const kittenTargetX = mouseX + (kittenSide > 0 ? 30 : -48);
+      const kittenTargetY = mouseY + 19;
+      kittenX += (kittenTargetX - kittenX) * 0.16;
+      kittenY += (kittenTargetY - kittenY) * 0.16;
       dot.style.transform = `translate3d(${mouseX - 5.5}px,${mouseY - 5.5}px,0)`;
       ring.style.transform = `translate3d(${ringX - 21}px,${ringY - 21}px,0)`;
       kitten.style.transform = `translate3d(${kittenX}px,${kittenY}px,0)`;
       if (Math.abs(mouseX-ringX) > .15 || Math.abs(mouseY-ringY) > .15 ||
-          Math.abs(mouseX+27-kittenX) > .2 || Math.abs(mouseY+24-kittenY) > .2) {
+          Math.abs(mouseX+(kittenSide > 0 ? 30 : -48)-kittenX) > .2 || Math.abs(mouseY+19-kittenY) > .2) {
         frame = requestAnimationFrame(renderCursor);
       } else { frame = 0; }
     };

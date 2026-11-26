@@ -20,3 +20,31 @@
 @media(max-width:760px){html{scroll-padding-top:78px}.nav{min-height:72px}.brand-mark{width:43px;height:43px}.menu-toggle{display:grid;place-items:center}.nav-actions{display:none}.nav-links{display:none;position:absolute;top:72px;left:4%;right:4%;padding:12px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch;gap:0}.nav-links.open{display:flex}.nav-links a{padding:12px 10px;border-bottom:1px solid #edf2ef}.nav-links a:last-child{border:0}.nav-links a:after{display:none}.hero{padding:54px 0 46px}.hero-grid{grid-template-columns:1fr;gap:8px}.hero-art{min-height:260px}.hero-art-ring{width:250px}.hero-art-core{width:145px;height:120px}.hero-art-core .icon{width:65px;height:65px}.trust-grid{grid-template-columns:1fr;gap:10px;padding:16px 0}.trust-grid>div{justify-content:flex-start}.section{padding:54px 0}.split,.contact-layout{grid-template-columns:1fr}.training-grid{grid-template-columns:1fr}.cta-inner{align-items:flex-start;flex-direction:column}.cta-inner .btn{width:100%}.footer-grid{grid-template-columns:1fr 1fr;gap:25px}.footer-grid>div:first-child{grid-column:1/-1}}
 @media(max-width:520px){.topbar-inner{padding:7px 0;gap:3px}.topbar-inner span{width:100%}.brand-name{font-size:16px}.brand-name small{font-size:9px}.hero h1{font-size:clamp(36px,10vw,43px)}.hero-copy{font-size:16px}.hero-actions{gap:9px}.hero-actions .btn{width:100%}.art-chip{font-size:11px;padding:8px 10px}.chip-a{left:-3px}.chip-b{right:-5px}.cards,.value-grid{grid-template-columns:1fr}.service-card,.value-card{padding:22px}.page-hero h1{font-size:34px}.contact-card{padding:22px}.contact-actions .btn{width:100%}.footer-grid{grid-template-columns:1fr}.footer-grid>div:first-child{grid-column:auto}.footer-bottom{flex-direction:column}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* Site-wide custom cursor — enabled only for fine-pointer devices */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  body.custom-cursor-enabled,
+  body.custom-cursor-enabled a,
+  body.custom-cursor-enabled button,
+  body.custom-cursor-enabled input,
+  body.custom-cursor-enabled textarea,
+  body.custom-cursor-enabled select,
+  body.custom-cursor-enabled summary{cursor:none}
+  .custom-cursor-dot,.custom-cursor-ring{
+    position:fixed;left:0;top:0;z-index:9999;pointer-events:none;border-radius:50%;
+    opacity:0;transform:translate3d(-100px,-100px,0);will-change:transform,opacity;
+  }
+  .custom-cursor-dot{width:7px;height:7px;background:#087f6b;box-shadow:0 0 0 4px rgba(16,168,137,.12)}
+  .custom-cursor-ring{
+    width:34px;height:34px;border:1.5px solid rgba(8,127,107,.72);
+    background:rgba(16,168,137,.055);transition:width .22s ease,height .22s ease,border-color .22s ease,background .22s ease,opacity .2s ease;
+  }
+  body.custom-cursor-visible .custom-cursor-dot,
+  body.custom-cursor-visible .custom-cursor-ring{opacity:1}
+  body.custom-cursor-hover .custom-cursor-ring{width:52px;height:52px;border-color:#10a889;background:rgba(16,168,137,.13)}
+  body.custom-cursor-press .custom-cursor-ring{width:27px;height:27px;background:rgba(16,168,137,.22)}
+}
+@media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){
+  .custom-cursor-dot,.custom-cursor-ring{display:none!important}
+}

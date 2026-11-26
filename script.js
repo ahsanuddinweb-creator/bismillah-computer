@@ -19,38 +19,20 @@
   if (finePointer.matches) {
     const dot = document.createElement('span');
     const ring = document.createElement('span');
-    const kitten = document.createElement('span');
     dot.className = 'custom-cursor-dot';
     ring.className = 'custom-cursor-ring';
-    kitten.className = 'custom-cursor-kitten';
-    kitten.textContent = '🐈';
-    kitten.style.animationDuration = '3.4s';
-    [dot, ring, kitten].forEach(el => el.setAttribute('aria-hidden', 'true'));
-    document.body.append(dot, ring, kitten);
+    [dot, ring].forEach(el => el.setAttribute('aria-hidden', 'true'));
+    document.body.append(dot, ring);
     document.body.classList.add('custom-cursor-enabled');
 
     let mouseX = -120, mouseY = -120, ringX = -120, ringY = -120;
-    let kittenX = -120, kittenY = -120, frame = 0;
-    let kittenSide = 1;
-    // The kitten changes sides slowly and follows the pointer gently.
-    window.setInterval(() => {
-      kittenSide *= -1;
-      if (!frame && document.body.classList.contains('custom-cursor-visible')) {
-        frame = requestAnimationFrame(renderCursor);
-      }
-    }, 4200);
+    let frame = 0;
     const renderCursor = () => {
       ringX += (mouseX - ringX) * 0.22;
       ringY += (mouseY - ringY) * 0.22;
-      const kittenTargetX = mouseX + (kittenSide > 0 ? 30 : -48);
-      const kittenTargetY = mouseY + 19;
-      kittenX += (kittenTargetX - kittenX) * 0.09;
-      kittenY += (kittenTargetY - kittenY) * 0.09;
       dot.style.transform = `translate3d(${mouseX - 5.5}px,${mouseY - 5.5}px,0)`;
       ring.style.transform = `translate3d(${ringX - 21}px,${ringY - 21}px,0)`;
-      kitten.style.transform = `translate3d(${kittenX}px,${kittenY}px,0)`;
-      if (Math.abs(mouseX-ringX) > .15 || Math.abs(mouseY-ringY) > .15 ||
-          Math.abs(mouseX+(kittenSide > 0 ? 30 : -48)-kittenX) > .2 || Math.abs(mouseY+19-kittenY) > .2) {
+      if (Math.abs(mouseX-ringX) > .15 || Math.abs(mouseY-ringY) > .15) {
         frame = requestAnimationFrame(renderCursor);
       } else { frame = 0; }
     };
@@ -79,12 +61,22 @@
     finePointer.addEventListener?.('change', event => {
       if (!event.matches) {
         document.body.classList.remove('custom-cursor-enabled','custom-cursor-visible','custom-cursor-hover','custom-cursor-press');
-        dot.remove(); ring.remove(); kitten.remove();
+        dot.remove(); ring.remove();
         cancelAnimationFrame(frame);
       }
     });
   }
 
+
+
+  // A small cat companion wanders independently along the bottom edge, never following the cursor.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const roamingCat = document.createElement('span');
+    roamingCat.className = 'roaming-cat';
+    roamingCat.textContent = '🐈';
+    roamingCat.setAttribute('aria-hidden', 'true');
+    document.body.append(roamingCat);
+  }
 
   // Lightweight scroll reveals for content blocks; no layout or content changes.
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

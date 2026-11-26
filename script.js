@@ -85,4 +85,30 @@
     });
   }
 
+
+  // Lightweight scroll reveals for content blocks; no layout or content changes.
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealTargets = document.querySelectorAll(
+      'main .section-head, main .service-card, main .training-card, main .value-card, main .process-list li, main .contact-card, main .map-panel, main .faq-item, main .cta-inner, main .location-card, main .about-highlight'
+    );
+    if (revealTargets.length) {
+      document.documentElement.classList.add('js-motion-ready');
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+      revealTargets.forEach((el, index) => {
+        el.classList.add('motion-reveal');
+        if (index % 3 === 1) el.classList.add('motion-delay-1');
+        if (index % 3 === 2) el.classList.add('motion-delay-2');
+        revealObserver.observe(el);
+      });
+    }
+  }
+
+
 })();

@@ -14,7 +14,7 @@
   }
   document.querySelectorAll('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-  // Visible highlighted cursor with a tiny walking kitten companion.
+  // Slow, smooth cursor kitten companion.
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   if (finePointer.matches) {
     const dot = document.createElement('span');
@@ -24,6 +24,7 @@
     ring.className = 'custom-cursor-ring';
     kitten.className = 'custom-cursor-kitten';
     kitten.textContent = '🐈';
+    kitten.style.animationDuration = '3.4s';
     [dot, ring, kitten].forEach(el => el.setAttribute('aria-hidden', 'true'));
     document.body.append(dot, ring, kitten);
     document.body.classList.add('custom-cursor-enabled');
@@ -31,20 +32,20 @@
     let mouseX = -120, mouseY = -120, ringX = -120, ringY = -120;
     let kittenX = -120, kittenY = -120, frame = 0;
     let kittenSide = 1;
-    // The kitten playfully darts from one side of the pointer to the other.
+    // The kitten changes sides slowly and follows the pointer gently.
     window.setInterval(() => {
       kittenSide *= -1;
       if (!frame && document.body.classList.contains('custom-cursor-visible')) {
         frame = requestAnimationFrame(renderCursor);
       }
-    }, 1150);
+    }, 4200);
     const renderCursor = () => {
       ringX += (mouseX - ringX) * 0.22;
       ringY += (mouseY - ringY) * 0.22;
       const kittenTargetX = mouseX + (kittenSide > 0 ? 30 : -48);
       const kittenTargetY = mouseY + 19;
-      kittenX += (kittenTargetX - kittenX) * 0.16;
-      kittenY += (kittenTargetY - kittenY) * 0.16;
+      kittenX += (kittenTargetX - kittenX) * 0.09;
+      kittenY += (kittenTargetY - kittenY) * 0.09;
       dot.style.transform = `translate3d(${mouseX - 5.5}px,${mouseY - 5.5}px,0)`;
       ring.style.transform = `translate3d(${ringX - 21}px,${ringY - 21}px,0)`;
       kitten.style.transform = `translate3d(${kittenX}px,${kittenY}px,0)`;

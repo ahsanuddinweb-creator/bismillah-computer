@@ -136,4 +136,28 @@
   updateScrollUI();
 
 
+  // Search the service directory without hiding the training section.
+  const serviceSearch = document.querySelector('#serviceSearch');
+  if (serviceSearch) {
+    const serviceCards = [...document.querySelectorAll('main .service-card')];
+    const serviceGrid = serviceCards[0]?.parentElement;
+    const emptyState = document.createElement('p');
+    emptyState.className = 'service-search-empty';
+    emptyState.setAttribute('role', 'status');
+    emptyState.textContent = 'এই নামে কোনো সেবা পাওয়া যায়নি। অন্য শব্দ দিয়ে খুঁজুন।';
+    emptyState.hidden = true;
+    serviceGrid?.append(emptyState);
+    serviceSearch.addEventListener('input', () => {
+      const term = serviceSearch.value.trim().toLocaleLowerCase();
+      let visibleCount = 0;
+      serviceCards.forEach(card => {
+        const matches = card.textContent.toLocaleLowerCase().includes(term);
+        card.hidden = !matches;
+        if (matches) visibleCount += 1;
+      });
+      emptyState.hidden = visibleCount !== 0;
+    });
+  }
+
+
 })();

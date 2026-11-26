@@ -93,3 +93,27 @@
   html{scroll-behavior:auto}
   .motion-reveal{opacity:1!important;transform:none!important}
 }
+
+
+/* Independent wandering cat: intentionally separate from the mouse cursor */
+@media (prefers-reduced-motion:no-preference){
+  .custom-cursor-kitten{display:none!important}
+  .roaming-cat{
+    position:fixed;z-index:9998;left:12px;bottom:16px;
+    display:block;pointer-events:none;user-select:none;
+    font-size:34px;line-height:1;
+    filter:drop-shadow(0 4px 5px rgba(0,0,0,.22));
+    animation:cat-walk-across 34s linear infinite alternate,cat-step .55s ease-in-out infinite;
+  }
+  @keyframes cat-walk-across{
+    0%{left:12px;transform:scaleX(1)}
+    49.5%{left:calc(100% - 54px);transform:scaleX(1)}
+    50.5%{left:calc(100% - 54px);transform:scaleX(-1)}
+    100%{left:12px;transform:scaleX(-1)}
+  }
+  @keyframes cat-step{
+    0%,100%{translate:0 0}
+    50%{translate:0 -3px}
+  }
+}
+@media (prefers-reduced-motion:reduce){.roaming-cat{display:none!important}}

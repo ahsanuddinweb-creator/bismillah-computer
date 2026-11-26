@@ -39,15 +39,19 @@
     transition:width .18s ease,height .18s ease,border-color .18s ease,background .18s ease,opacity .18s ease;
   }
   .custom-cursor-kitten{
-    z-index:10001;font-size:29px;line-height:1;filter:drop-shadow(0 3px 4px rgba(0,0,0,.28));
-    transform-origin:50% 75%;animation:kitten-walk .42s ease-in-out infinite alternate;
+    z-index:10001;font-size:31px;line-height:1;filter:drop-shadow(0 4px 5px rgba(0,0,0,.3));
+    transform-origin:50% 85%;animation:kitten-leap .48s cubic-bezier(.35,.05,.55,.95) infinite;
   }
   body.custom-cursor-visible .custom-cursor-dot,
   body.custom-cursor-visible .custom-cursor-ring,
   body.custom-cursor-visible .custom-cursor-kitten{opacity:1}
   body.custom-cursor-hover .custom-cursor-ring{width:56px;height:56px;border-color:#ffad32;background:rgba(255,189,69,.2);box-shadow:0 0 0 7px rgba(255,189,69,.15),0 0 30px rgba(255,173,50,.7)}
   body.custom-cursor-press .custom-cursor-ring{width:30px;height:30px;background:rgba(16,168,137,.3)}
-  @keyframes kitten-walk{from{margin-top:-2px;rotate:-7deg}to{margin-top:3px;rotate:7deg}}
+  @keyframes kitten-leap{
+    0%,100%{margin-top:5px;rotate:-13deg;scale:.96 1.04}
+    42%{margin-top:-22px;rotate:12deg;scale:1.04 .96}
+    68%{margin-top:-13px;rotate:4deg;scale:1.02 .98}
+  }
 }
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){
   .custom-cursor-dot,.custom-cursor-ring,.custom-cursor-kitten{display:none!important}

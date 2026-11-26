@@ -102,5 +102,38 @@
     }
   }
 
+  // Lightweight page progress and accessible back-to-top control.
+  const progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  const progressBar = document.createElement('span');
+  progress.append(progressBar);
+  document.body.append(progress);
+
+  const backToTop = document.createElement('button');
+  backToTop.className = 'back-to-top';
+  backToTop.type = 'button';
+  backToTop.setAttribute('aria-label', 'পাতার শুরুতে ফিরে যান');
+  backToTop.textContent = '↑';
+  document.body.append(backToTop);
+  backToTop.addEventListener('click', () => window.scrollTo({
+    top: 0,
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  }));
+
+  let scrollFrame = 0;
+  const updateScrollUI = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progressValue = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+    progressBar.style.transform = 'scaleX(' + progressValue + ')';
+    backToTop.classList.toggle('is-visible', window.scrollY > 480);
+    scrollFrame = 0;
+  };
+  window.addEventListener('scroll', () => {
+    if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollUI);
+  }, { passive: true });
+  window.addEventListener('resize', updateScrollUI, { passive: true });
+  updateScrollUI();
+
 
 })();

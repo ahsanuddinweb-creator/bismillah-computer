@@ -1,0 +1,19 @@
+{
+  "name": "BISMILLAH COMPUTER",
+  "short_name": "Bismillah Computer",
+  "description": "গৈলা বাজারের ডিজিটাল সেবা ও কম্পিউটার প্রশিক্ষণ কেন্দ্র",
+  "lang": "bn",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbfdfc",
+  "theme_color": "#087f6b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -117,3 +117,22 @@
   }
 }
 @media (prefers-reduced-motion:reduce){.roaming-cat{display:none!important}}
+
+
+/* Site-wide usability polish: reading progress, clear focus and back-to-top */
+:focus-visible{outline:3px solid var(--focus);outline-offset:4px;border-radius:5px}
+.scroll-progress{position:fixed;inset:0 auto auto 0;width:100%;height:3px;z-index:10010;pointer-events:none;background:transparent}
+.scroll-progress>span{display:block;width:100%;height:100%;background:linear-gradient(90deg,#10a889,#70e6c3);transform:scaleX(0);transform-origin:left center;will-change:transform}
+.back-to-top{position:fixed;right:22px;bottom:22px;z-index:80;width:46px;height:46px;border:1px solid #d3e9e1;border-radius:15px;background:rgba(255,255,255,.96);color:var(--brand-strong);box-shadow:0 10px 28px rgba(8,40,59,.15);display:grid;place-items:center;font:700 22px/1 Arial,sans-serif;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .22s ease,visibility .22s ease,transform .22s ease,background .22s ease}
+.back-to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{background:var(--pale);transform:translateY(-3px)}
+@media(max-width:520px){.back-to-top{right:14px;bottom:14px;width:42px;height:42px;border-radius:13px}}
+@media(prefers-reduced-motion:reduce){.back-to-top{transition:none}}
+
+.service-search{max-width:560px;margin:0 auto 28px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(8,40,59,.055);display:grid;gap:5px}
+.service-search label{font-weight:700;color:var(--deep)}
+.service-search input{width:100%;min-height:48px;padding:11px 14px;border:1px solid #cbded8;border-radius:11px;background:#fbfdfc;color:var(--ink);font:inherit}
+.service-search input:focus{outline:3px solid rgba(16,168,137,.2);border-color:var(--brand)}
+.service-search span{font-size:13px;color:var(--muted)}
+.service-card[hidden]{display:none!important}
+.service-search-empty{grid-column:1/-1;padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px;background:#fff}

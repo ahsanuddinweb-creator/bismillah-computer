@@ -32,7 +32,12 @@
     let kittenX = -120, kittenY = -120, frame = 0;
     let kittenSide = 1;
     // The kitten playfully darts from one side of the pointer to the other.
-    window.setInterval(() => { kittenSide *= -1; }, 1150);
+    window.setInterval(() => {
+      kittenSide *= -1;
+      if (!frame && document.body.classList.contains('custom-cursor-visible')) {
+        frame = requestAnimationFrame(renderCursor);
+      }
+    }, 1150);
     const renderCursor = () => {
       ringX += (mouseX - ringX) * 0.22;
       ringY += (mouseY - ringY) * 0.22;

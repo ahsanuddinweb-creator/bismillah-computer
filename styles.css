@@ -22,29 +22,33 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 
-/* Site-wide custom cursor — enabled only for fine-pointer devices */
+/* Visible cursor highlight + playful kitten companion (desktop mouse only) */
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
-  body.custom-cursor-enabled,
-  body.custom-cursor-enabled a,
-  body.custom-cursor-enabled button,
-  body.custom-cursor-enabled input,
-  body.custom-cursor-enabled textarea,
-  body.custom-cursor-enabled select,
-  body.custom-cursor-enabled summary{cursor:none}
-  .custom-cursor-dot,.custom-cursor-ring{
-    position:fixed;left:0;top:0;z-index:9999;pointer-events:none;border-radius:50%;
-    opacity:0;transform:translate3d(-100px,-100px,0);will-change:transform,opacity;
+  .custom-cursor-dot,.custom-cursor-ring,.custom-cursor-kitten{
+    position:fixed;left:0;top:0;pointer-events:none;opacity:0;
+    transform:translate3d(-120px,-120px,0);will-change:transform,opacity;
   }
-  .custom-cursor-dot{width:7px;height:7px;background:#087f6b;box-shadow:0 0 0 4px rgba(16,168,137,.12)}
+  .custom-cursor-dot{
+    z-index:10002;width:11px;height:11px;border-radius:50%;
+    background:#ffbd45;border:2px solid #fff;box-shadow:0 0 0 4px rgba(255,189,69,.3),0 0 18px 7px rgba(255,189,69,.75);
+  }
   .custom-cursor-ring{
-    width:34px;height:34px;border:1.5px solid rgba(8,127,107,.72);
-    background:rgba(16,168,137,.055);transition:width .22s ease,height .22s ease,border-color .22s ease,background .22s ease,opacity .2s ease;
+    z-index:10000;width:42px;height:42px;border-radius:50%;
+    border:2px solid #10a889;background:rgba(16,168,137,.16);
+    box-shadow:0 0 0 5px rgba(16,168,137,.12),0 0 24px rgba(16,168,137,.55);
+    transition:width .18s ease,height .18s ease,border-color .18s ease,background .18s ease,opacity .18s ease;
+  }
+  .custom-cursor-kitten{
+    z-index:10001;font-size:29px;line-height:1;filter:drop-shadow(0 3px 4px rgba(0,0,0,.28));
+    transform-origin:50% 75%;animation:kitten-walk .42s ease-in-out infinite alternate;
   }
   body.custom-cursor-visible .custom-cursor-dot,
-  body.custom-cursor-visible .custom-cursor-ring{opacity:1}
-  body.custom-cursor-hover .custom-cursor-ring{width:52px;height:52px;border-color:#10a889;background:rgba(16,168,137,.13)}
-  body.custom-cursor-press .custom-cursor-ring{width:27px;height:27px;background:rgba(16,168,137,.22)}
+  body.custom-cursor-visible .custom-cursor-ring,
+  body.custom-cursor-visible .custom-cursor-kitten{opacity:1}
+  body.custom-cursor-hover .custom-cursor-ring{width:56px;height:56px;border-color:#ffad32;background:rgba(255,189,69,.2);box-shadow:0 0 0 7px rgba(255,189,69,.15),0 0 30px rgba(255,173,50,.7)}
+  body.custom-cursor-press .custom-cursor-ring{width:30px;height:30px;background:rgba(16,168,137,.3)}
+  @keyframes kitten-walk{from{margin-top:-2px;rotate:-7deg}to{margin-top:3px;rotate:7deg}}
 }
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){
-  .custom-cursor-dot,.custom-cursor-ring{display:none!important}
+  .custom-cursor-dot,.custom-cursor-ring,.custom-cursor-kitten{display:none!important}
 }

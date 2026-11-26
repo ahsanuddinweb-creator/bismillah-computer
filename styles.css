@@ -128,3 +128,11 @@
 .back-to-top:hover{background:var(--pale);transform:translateY(-3px)}
 @media(max-width:520px){.back-to-top{right:14px;bottom:14px;width:42px;height:42px;border-radius:13px}}
 @media(prefers-reduced-motion:reduce){.back-to-top{transition:none}}
+
+.service-search{max-width:560px;margin:0 auto 28px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(8,40,59,.055);display:grid;gap:5px}
+.service-search label{font-weight:700;color:var(--deep)}
+.service-search input{width:100%;min-height:48px;padding:11px 14px;border:1px solid #cbded8;border-radius:11px;background:#fbfdfc;color:var(--ink);font:inherit}
+.service-search input:focus{outline:3px solid rgba(16,168,137,.2);border-color:var(--brand)}
+.service-search span{font-size:13px;color:var(--muted)}
+.service-card[hidden]{display:none!important}
+.service-search-empty{grid-column:1/-1;padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px;background:#fff}

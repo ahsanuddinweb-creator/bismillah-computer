@@ -14,26 +14,32 @@
   }
   document.querySelectorAll('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-  // Elegant site-wide cursor enhancement (desktop mouse only).
+  // Visible highlighted cursor with a tiny walking kitten companion.
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   if (finePointer.matches) {
     const dot = document.createElement('span');
     const ring = document.createElement('span');
+    const kitten = document.createElement('span');
     dot.className = 'custom-cursor-dot';
     ring.className = 'custom-cursor-ring';
-    dot.setAttribute('aria-hidden', 'true');
-    ring.setAttribute('aria-hidden', 'true');
-    document.body.append(dot, ring);
+    kitten.className = 'custom-cursor-kitten';
+    kitten.textContent = '🐈';
+    [dot, ring, kitten].forEach(el => el.setAttribute('aria-hidden', 'true'));
+    document.body.append(dot, ring, kitten);
     document.body.classList.add('custom-cursor-enabled');
 
-    let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
-    let frame = 0;
+    let mouseX = -120, mouseY = -120, ringX = -120, ringY = -120;
+    let kittenX = -120, kittenY = -120, frame = 0;
     const renderCursor = () => {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      dot.style.transform = `translate3d(${mouseX - 3.5}px,${mouseY - 3.5}px,0)`;
-      ring.style.transform = `translate3d(${ringX - 17}px,${ringY - 17}px,0)`;
-      if (Math.abs(mouseX-ringX) > .1 || Math.abs(mouseY-ringY) > .1) {
+      ringX += (mouseX - ringX) * 0.22;
+      ringY += (mouseY - ringY) * 0.22;
+      kittenX += (mouseX + 27 - kittenX) * 0.12;
+      kittenY += (mouseY + 24 - kittenY) * 0.12;
+      dot.style.transform = `translate3d(${mouseX - 5.5}px,${mouseY - 5.5}px,0)`;
+      ring.style.transform = `translate3d(${ringX - 21}px,${ringY - 21}px,0)`;
+      kitten.style.transform = `translate3d(${kittenX}px,${kittenY}px,0)`;
+      if (Math.abs(mouseX-ringX) > .15 || Math.abs(mouseY-ringY) > .15 ||
+          Math.abs(mouseX+27-kittenX) > .2 || Math.abs(mouseY+24-kittenY) > .2) {
         frame = requestAnimationFrame(renderCursor);
       } else { frame = 0; }
     };
@@ -62,7 +68,7 @@
     finePointer.addEventListener?.('change', event => {
       if (!event.matches) {
         document.body.classList.remove('custom-cursor-enabled','custom-cursor-visible','custom-cursor-hover','custom-cursor-press');
-        dot.remove(); ring.remove();
+        dot.remove(); ring.remove(); kitten.remove();
         cancelAnimationFrame(frame);
       }
     });

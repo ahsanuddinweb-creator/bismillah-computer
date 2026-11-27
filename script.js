@@ -108,7 +108,7 @@
   const noticeList = document.querySelector('#noticeList');
   if (noticeList) {
     const labels = {admission:'ভর্তি',job:'চাকরি',government:'সরকারি',training:'প্রশিক্ষণ',local:'স্থানীয় ও অন্যান্য'};
-    const icons = {admission:'🎓',job:'💼',government:'🏛️',training:'🖥️',local:'📌'};
+    const iconMarkup = '<svg class="icon" aria-hidden="true"><use href="#i-file"></use></svg>';
     let notices = [];
     let activeFilter = 'all';
     const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -122,7 +122,7 @@
         const date = item.date ? new Date(item.date + 'T00:00:00').toLocaleDateString('bn-BD',{year:'numeric',month:'long',day:'numeric'}) : '';
         const link = item.url ? '<a class="text-link" href="' + escapeHtml(item.url) + '" target="_blank" rel="noopener noreferrer">বিস্তারিত / মূল বিজ্ঞপ্তি ↗</a>' : '';
         const attachment = item.attachment ? '<a class="text-link" href="' + escapeHtml(item.attachment) + '" target="_blank" rel="noopener noreferrer">PDF / সংযুক্তি ↗</a>' : '';
-        return '<article class="notice-card"><div class="notice-card-icon" aria-hidden="true">' + (icons[item.category] || '📄') + '</div><div><div class="notice-meta"><span class="notice-category">' + escapeHtml(labels[item.category] || 'অন্যান্য') + '</span>' + (date ? '<time datetime="' + escapeHtml(item.date) + '">' + date + '</time>' : '') + '</div><h3>' + escapeHtml(item.title) + '</h3><p>' + escapeHtml(item.summary) + '</p></div><div class="notice-card-actions">' + link + attachment + '</div></article>';
+        return '<article class="notice-card"><div class="notice-card-icon" aria-hidden="true">' + iconMarkup + '</div><div><div class="notice-meta"><span class="notice-category">' + escapeHtml(labels[item.category] || 'অন্যান্য') + '</span>' + (date ? '<time datetime="' + escapeHtml(item.date) + '">' + date + '</time>' : '') + '</div><h3>' + escapeHtml(item.title) + '</h3><p>' + escapeHtml(item.summary) + '</p></div><div class="notice-card-actions">' + link + attachment + '</div></article>';
       }).join('');
     };
     document.querySelectorAll('[data-notice-filter]').forEach(button => button.addEventListener('click', () => {
